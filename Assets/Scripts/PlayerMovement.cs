@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Movement Settings")]
+    [SerializeField] private float _walkSpeed;
+
+    private Rigidbody2D _rb;
+    private Vector2 _input;
+
+    private void Start()
     {
-        
+        _rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        _input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    }
+
+    private void FixedUpdate()
+    {
+        _rb.velocity = _input * _walkSpeed;
     }
 }
