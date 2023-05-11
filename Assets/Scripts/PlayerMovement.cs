@@ -6,12 +6,17 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _sprintSpeed;
+    [SerializeField] private KeyCode _sprintKey;
+    [SerializeField] private float _smoothValue;
+
 
     private Rigidbody2D _rb;
     private Vector2 _input;
 
     private void Start()
     {
+        _sprintKey = KeyCode.LeftShift;
         _rb = GetComponent<Rigidbody2D>();
     }
 
@@ -22,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.velocity = _input * _walkSpeed;
+        float currentSpeed = Input.GetKey(_sprintKey) ? _sprintSpeed : _walkSpeed;
+        _rb.velocity = _input * currentSpeed;
     }
 }
